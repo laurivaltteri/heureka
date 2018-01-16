@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>MIDAS demo</title>
+        <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="css/client.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script data-main="scripts/main" src="scripts/require.js"></script>
+
+    </head>
+
+    <body>
+        <div id="contents">
+            <img src="images/midas_logo.png">
+	    <div class="header">Beta power indicators</div>
+            <div class="mainframe">
+		<div id="chart_div" style="width: 400px; height: 120px;"></div>
+	    </div>
+            <a onclick="App.toggleUpdater();"><div id="updatebutton" class="button">start updating</div></a>
+        </div>
+    </body>
+
+</html>
