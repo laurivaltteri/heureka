@@ -15,8 +15,8 @@ var App = (function() {
 
     var datain = [
         ['Label', 'Value'],
-        ['Fp1 beta power', 0],
-        ['Fp2 beta power', 0]
+        ['Fp1', 0],
+        ['Fp2', 0]
     ];
 
 
@@ -37,7 +37,6 @@ var App = (function() {
         } else if  (running === 1) {
             clearInterval(updateRunnerID_1);
             clearInterval(updateRunnerID_2);
-            clearInterval(updateRunnerID_3);
             running = 0;
             $("#updatebutton").text("start updating");
         }
@@ -45,24 +44,10 @@ var App = (function() {
     }
 
     // Make HTTP get request and set the
-    function getfp1(id) {
+    function getValue(id) {
         $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/eeg_node/metric/{"type":"fp1beta"}',
-            dataType: "jsonp",
-            success: function(data) {
-                if (typeof data[0] !== "undefined") {
-                    var val = data[0]["return"];
-                    setValue(id, val);
-                }
-            }
-        });
-    }
-
-    function getfp2(id) {
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8080/eeg_node/metric/{"type":"fp2beta"}',
+            url: 'http://localhost:8080/eegnode/metric/{"type":"betapower","channels":["fp'+id+'"],"time_window":[1]}',
             dataType: "jsonp",
             success: function(data) {
                 if (typeof data[0] !== "undefined") {
@@ -82,12 +67,12 @@ var App = (function() {
         var data = google.visualization.arrayToDataTable(datain);
 
         var options = {
-            min: -40,
+            min: 0,
             max: 40,
             width: 400, height: 120,
-            greenFrom: -40, greenTo: 0,
-            yellowFrom:0, yellowTo: 40,
-            minorTicks: 10
+            greenFrom: 0, greenTo: 10,
+            yellowFrom: 10, yellowTo: 40,
+            minorTicks: 5
         };
 
         var chart = new google.visualization.Gauge(document.getElementById('chart_div'));

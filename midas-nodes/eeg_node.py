@@ -15,11 +15,11 @@ class EEGNode(BaseNode):
         super().__init__(*args)
         self.metric_functions.append(self.betapower)
 
-    def fp1beta(self, x):
+    def betapower(self, x):
         """ Calculates beta power for input channel.
         """
-        f, P = scipy.signal.welch(x['data'][0], fs=self.sampling_rate)
-        p_fp1_beta = np.mean(P[np.bitwise_and(f >= 12.0, f <= 25.0)])
+        f, P = scipy.signal.welch(x['data'][0], fs=self.primary_sampling_rate)
+        betapower = np.mean(P[np.bitwise_and(f >= 12.0, f <= 25.0)])
 
         return betapower
 
